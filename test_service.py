@@ -12,7 +12,7 @@ startup_events()
 def test_match_users_endpoint():
     response = client.get("/api/v1/match_users?transaction_id='NEYo6vu'")
     assert response.status_code == 200
-    assert len(response.json()["matches"]) == 1
+    assert len(response.json()["users"]) == 1
 
 
 # Test GET request for /api/v1/similar_transactions endpoint
