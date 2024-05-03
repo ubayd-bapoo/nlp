@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, HTTPException, Query
 
 from service_app.helpers.nlp import NLP
 
@@ -27,6 +27,9 @@ def match_users_endpoint(transaction_id: str = Query(..., title="Transaction ID"
     - total_matches: The total number of matched users.
     - matches: A list of dictionaries containing information about matched users.
     """
+    if not transaction_id:
+        raise HTTPException(status_code=422, detail="Transaction ID cannot be empty.")
+
     matched_users = NLP.match_users(transaction_id )
 
     response = {
@@ -60,4 +63,6 @@ def similar_transactions_endpoint(input_string: str = Query(..., title="Input St
     dictionary includes the transaction ID, description, and similarity score indicating the degree of similarity
     between the transaction description and the input string.
     """
+    if not input_string:
+        raise HTTPException(status_code=422, detail="Input String cannot be empty.")
     return NLP.similar_transactions(input_string)
