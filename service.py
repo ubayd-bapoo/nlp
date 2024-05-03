@@ -8,7 +8,8 @@ from fastapi import FastAPI
 from service_app.routers import RouterRegister
 
 # Configure the logging settings
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", handlers=[logging.StreamHandler(sys.stdout)])
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                    handlers=[logging.StreamHandler(sys.stdout)])
 # Create a logger
 logger = logging.getLogger(__name__)
 

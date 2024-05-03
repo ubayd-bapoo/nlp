@@ -12,6 +12,8 @@ This README file provides step-by-step instructions on how to set up and run the
 - [Building the Docker Image](#4-building-the-docker-image)
 - [Running the Dockerized Application](#5-running-the-dockerized-application)
 - [API Documentation](#6-api-documentation)
+- [Unit Test](#7-unit-test)
+- [Task 3](#Task-3)
 
 ### 1. Clone the Repository
 Clone the repository containing the Python application to your local machine using Git 
@@ -83,3 +85,66 @@ Feel free to dive into the documentation to get a better understanding of how to
 
 Note: In a production environment, replace `http://localhost:8000/docs` with the actual
  URL where your API is hosted.
+
+### 7. Unit Test
+To run the unit tests for this application, follow these steps:
+```bash
+   pytest -v -s test_service.py
+```
+#### Automated Testing with GitHub Actions
+
+I have set up a GitHub Actions workflow that automatically runs pytest for our unit tests
+ whenever changes are pushed to the repository's `main` branch. This ensures that our code
+  is continuously tested for correctness.
+
+The workflow configuration can be found in the [`.github/workflows/unit_tests.yml`](.github/workflows/unit_tests.yml) file. Here's how it works:
+
+- Whenever you push changes to the `main` branch, GitHub Actions will automatically 
+trigger the workflow.
+- The workflow will use the `pytest` command to execute the tests defined in the 
+`test_service.py` file.
+- The results of the tests will be displayed in the GitHub Actions logs.
+
+You can always check the status of the tests by visiting the "Actions" tab in this 
+repository. If there are any issues with the tests, you will be notified.
+
+By leveraging GitHub Actions, we ensure that our codebase remains reliable and that new
+ contributions are thoroughly tested before being merged into the main branch.
+
+# Task 3
+## Given additional resources, suggest, how you might take this proof of concept to production. Include any changes or improvements you might make.
+
+* Performance Optimization:
+    - Review and optimize code for performance bottlenecks.
+    - Implement caching mechanisms for frequently accessed data.
+* Database Management:
+    - Choose a production-grade database system.
+    - Implement database migrations and version control.
+* Asynchronous Processing:
+    - Use async programming for I/O-bound operations.
+    - Consider task queues for background processing.
+* Logging and Monitoring:
+    - Implement comprehensive logging and set up monitoring tools.
+    - Monitor system health and implement alerts.
+* Security Enhancements:
+    - Implement input validation and authentication mechanisms.
+     -Use HTTPS for secure communication and regular dependency updates.
+* Deployment and Scalability:
+    - Containerize the application using Docker.
+    - Use container orchestration platforms like Kubernetes.
+    - Implement autoscaling policies.
+* CI/CD Pipeline:
+    - Set up a CI/CD pipeline for automated testing and deployment.
+    - Automate deployment workflows and implement rollback mechanisms.
+* Documentation and Testing:
+    - Maintain comprehensive documentation and implement unit tests.
+    - Use frameworks like pytest for testing and enforce coding standards.
+* Backup and Disaster Recovery:
+    - Implement regular backups and disaster recovery plans.
+* Compliance and Regulations:
+    - Ensure compliance with relevant regulations and standards.
+    - Implement features for data privacy and audit logging.
+
+By implementing these changes and improvements, you can enhance the reliability, scalability, security, and 
+maintainability of your FastAPI application as you transition from a proof of concept to a production-ready system.
+

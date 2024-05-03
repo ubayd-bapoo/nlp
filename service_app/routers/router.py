@@ -62,8 +62,8 @@ def similar_transactions_endpoint(input_string: str = Query(..., title="Input St
     Returns:
     - total_number_of_tokens_used: Total number of tokens used
     - transactions: A list of dictionaries containing information about transactions with similar descriptions. Each
-    dictionary includes the transaction ID, description, and similarity score indicating the degree of similarity
-    between the transaction description and the input string.
+    dictionary includes the transaction ID, description, embedding and similarity score indicating the degree of
+    similarity between the transaction description and the input string.
     """
     if not input_string:
         raise HTTPException(status_code=422, detail="Input String cannot be empty.")

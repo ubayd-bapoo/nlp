@@ -13,7 +13,8 @@ nltk.download('punkt')
 MODEL = SentenceTransformer('paraphrase-MiniLM-L6-v2')
 
 # Configure the logging settings
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", handlers=[logging.StreamHandler(sys.stdout)])
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                    handlers=[logging.StreamHandler(sys.stdout)])
 # Create a logger
 logger = logging.getLogger(__name__)
 
