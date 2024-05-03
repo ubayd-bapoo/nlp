@@ -26,7 +26,7 @@ def startup_events():
 @click.option("--port", default=8000, type=click.INT, help="Port to serve on.")
 @click.option("--host", default="0.0.0.0", type=click.STRING, help="Host to serve on.")
 def serve(port, host):
-    logger.info('Starting BDE application')
+    logger.info('Starting Deel technical test application')
     uvicorn.run(
         "service:app",
         host=host,
