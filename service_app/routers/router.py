@@ -1,7 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 from service_app.helpers.nlp import NLP
-from service_app.models.inputs import TransactionID, InputString
 
 router = APIRouter()
 
@@ -15,7 +14,9 @@ NLP = NLP()
                         "matching, allowing for consideration of typos or variations in the transaction ID input.",
             summary="Match users with transactions"
             )
-def match_users_endpoint(transaction_id: TransactionID):
+def match_users_endpoint(transaction_id: str = Query(..., title="Transaction ID",
+                                                     description="The transaction ID for which users are to be matched."
+                                                     )):
     """
     Match users with their payments based on a transaction ID input.
 
@@ -26,7 +27,7 @@ def match_users_endpoint(transaction_id: TransactionID):
     - total_matches: The total number of matched users.
     - matches: A list of dictionaries containing information about matched users.
     """
-    matched_users = NLP.match_users(transaction_id.transaction_id)
+    matched_users = NLP.match_users(transaction_id )
 
     response = {
         "total_matches": len(matched_users),
@@ -41,7 +42,9 @@ def match_users_endpoint(transaction_id: TransactionID):
             summary="Find transactions with similar descriptions",
             description="List of transactions with similar descriptions"
             )
-def similar_transactions_endpoint(input_string: InputString):
+def similar_transactions_endpoint(input_string: str = Query(..., title="Input String",
+                                                            description="The input string to find similar transactions."
+                                                            )):
     """
     Find transactions with descriptions similar to the input string in a semantical way.
 

@@ -48,7 +48,7 @@ class NLP:
         return matched_users
 
     def similar_transactions(self, input_string):
-        input_embedding = MODEL.encode(input_string.input_string, convert_to_tensor=True)
+        input_embedding = MODEL.encode(input_string, convert_to_tensor=True)
         transaction_embeddings = MODEL.encode([transaction["description"] for transaction in self._transaction_data],
                                               convert_to_tensor=True)
 
@@ -64,6 +64,6 @@ class NLP:
         similar_transactions.sort(key=lambda x: x["similarity"], reverse=True)
 
         return {
-            "total_tokens_used": len(nltk.word_tokenize(input_string.input_string)),
+            "total_tokens_used": len(nltk.word_tokenize(input_string)),
             "transactions": similar_transactions
         }
