@@ -40,10 +40,10 @@ class NLP:
         for user in self._user_data:
             ratio = fuzz.ratio(user["id"].lower(), transaction_id.lower())
             if ratio >= 70:  # Adjust this threshold as needed
-                matched_users.append({"id": user["id"], "name": user["name"], "match_ratio": ratio})
+                matched_users.append({"id": user["id"], "name": user["name"], "match_metric": ratio})
 
         # Sort users by match ratio in descending order
-        matched_users.sort(key=itemgetter("match_ratio"), reverse=True)
+        matched_users.sort(key=itemgetter("match_metric"), reverse=True)
 
         return matched_users
 
@@ -57,13 +57,14 @@ class NLP:
 
         # Combine similarities with transaction data
         similar_transactions = [
-            {"id": self._transaction_data[i]["id"], "description": self._transaction_data[i]["description"], "similarity": similarities[i]} for
+            {"id": self._transaction_data[i]["id"], "description": self._transaction_data[i]["description"],
+             "embeddings": transaction_embeddings[i].tolist(), "similarity": similarities[i]} for
             i in range(len(self._transaction_data))]
 
         # Sort transactions by similarity in descending order
         similar_transactions.sort(key=lambda x: x["similarity"], reverse=True)
 
         return {
-            "total_tokens_used": len(nltk.word_tokenize(input_string)),
+            "total_number_of_tokens_used": len(nltk.word_tokenize(input_string)),
             "transactions": similar_transactions
         }

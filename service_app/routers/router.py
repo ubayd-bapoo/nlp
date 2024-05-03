@@ -10,8 +10,9 @@ NLP = NLP()
 @router.get("/api/v1/match_users", tags=["Match Users"],
             description="This API endpoint is designed to match users with their payments based on a transaction ID "
                         "input. The endpoint takes a transaction ID as a string input and returns a list of users who "
-                        "could be considered as matching the transaction. The matching logic is based on fuzzy string "
-                        "matching, allowing for consideration of typos or variations in the transaction ID input.",
+                        "could be considered as matching the transaction with their ID. The matching logic is based on "
+                        "fuzzy string matching, allowing for consideration of typos or variations in the transaction ID"
+                        " input.",
             summary="Match users with transactions"
             )
 def match_users_endpoint(transaction_id: str = Query(..., title="Transaction ID",
@@ -25,7 +26,7 @@ def match_users_endpoint(transaction_id: str = Query(..., title="Transaction ID"
 
     Returns:
     - total_matches: The total number of matched users.
-    - matches: A list of dictionaries containing information about matched users.
+    - users: A list of dictionaries containing information about matched users.
     """
     if not transaction_id:
         raise HTTPException(status_code=422, detail="Transaction ID cannot be empty.")
@@ -34,7 +35,7 @@ def match_users_endpoint(transaction_id: str = Query(..., title="Transaction ID"
 
     response = {
         "total_matches": len(matched_users),
-        "matches": matched_users
+        "users": matched_users
     }
 
     return response
@@ -59,6 +60,7 @@ def similar_transactions_endpoint(input_string: str = Query(..., title="Input St
     - input_string: The input string for which similar transactions are to be found.
 
     Returns:
+    - total_number_of_tokens_used: Total number of tokens used
     - transactions: A list of dictionaries containing information about transactions with similar descriptions. Each
     dictionary includes the transaction ID, description, and similarity score indicating the degree of similarity
     between the transaction description and the input string.
